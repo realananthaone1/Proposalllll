@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>I have Secret for You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    html, body {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      background: linear-gradient(120deg, #0f0f0f, #1a1a1a);
+      color: white;
+    }
+    section {
+      height: 100vh;
+      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    h1, h2, p {
+      margin-bottom: 1rem;
+    }
+    .btn {
+      background: white;
+      color: black;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.4s ease;
+    }
+    .btn:hover {
+      background: #222;
+      color: white;
+      transform: scale(1.05);
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    input[type="text"] {
+      padding: 0.7rem;
+      border-radius: 10px;
+      border: none;
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+    #final-message {
+      opacity: 0;
+      transition: all 1s ease;
+    }
+    #final-message.reveal {
+      opacity: 1;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(#ff3c82aa 1px, transparent 1px);
+      background-size: 30px 30px;
+      opacity: 0.03;
+      z-index: -1;
+      animation: pulse 10s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Intro Section -->
+  <section id="intro" class="fade-in">
+    <h1>I have a secret for you Vedapriya...</h1>
+    <p>This isn’t just a message. It is my way of expressing the true LOVE that I have for YOUUU.</p>
+    <a href="#puzzle1a" class="btn">Start</a>
+  </section>
+
+  <!-- Puzzle 1A: Guitar -->
+  <section id="puzzle1a" class="fade-in">
+    <h2>Clue 1: 🎸</h2>
+    <p>I play guitar. Any idea who I might be?</p>
+    <input type="text" id="input1a" placeholder="Guess a name..." />
+    <button class="btn" onclick="showResult1A()">Submit</button>
+    <p id="result1a"></p>
+  </section>
+
+  <!-- Puzzle 1B: Code -->
+  <section id="puzzle1b" class="fade-in">
+    <h2>Clue 2: 💻</h2>
+    <p>Unlike someone else… I also code.<br>Still unsure?</p>
+    <input type="text" id="input1b" placeholder="Guess again..." />
+    <button class="btn" onclick="showResult1B()">Submit</button>
+    <p id="result1b"></p>
+  </section>
+
+  <!-- Puzzle 1C: Class 8F -->
+  <section id="puzzle1c" class="fade-in">
+    <h2>Clue 3: 🏫</h2>
+    <p>I was in 8F last year.<br>Now do you remember?</p>
+    <input type="text" id="input1c" placeholder="Try a final name..." />
+    <button class="btn" onclick="showResult1C()">Submit</button>
+    <p id="result1c"></p>
+  </section>
+
+  <!-- Final Section -->
+  <section id="final" class="fade-in">
+    <div id="final-message">
+      <h2>It’s me…</h2>
+      <h1 style="letter-spacing: 10px;"> I have a clue for U, find it out</h1>
+      <p>You might have guessed it... or maybe not.</p>
+      <p style="opacity: 0.6;">Hint: My name has <strong>4 A’s</strong> in it. 🖤</p>
+    </div>
+  </section>
+
+  <!-- Background Music (Add manually) -->
+  <audio id="bgMusic" autoplay loop hidden>
+    <source src="jo-tum-mere-ho.mp3" type="audio/mpeg" />
+    Your browser does not support the audio tag.
+  </audio>
+
+  <script>
+    // Fade-in on scroll
+    const fadeIns = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.3 });
+    fadeIns.forEach(el => observer.observe(el));
+
+    // Puzzle responses without correctness check
+    function showResult1A() {
+      document.getElementById("result1a").textContent = "You might be right... or you might be wrong.";
+      setTimeout(() => {
+        document.querySelector('#puzzle1b').scrollIntoView({ behavior: 'smooth' });
+      }, 1000);
+    }
+
+    function showResult1B() {
+      document.getElementById("result1b").textContent = "You might be right... or you might be wrong.";
+      setTimeout(() => {
+        document.querySelector('#puzzle1c').scrollIntoView({ behavior: 'smooth' });
+      }, 1000);
+    }
+
+    function showResult1C() {
+      document.getElementById("result1c").textContent = "You might be right... or you might be wrong.";
+      setTimeout(() => {
+        document.querySelector('#final').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          document.getElementById('final-message').classList.add('reveal');
+        }, 1000);
+      }, 1000);
+    }
+
+    // Music repeat handler (if needed)
+    const music = document.getElementById("bgMusic");
+    if (music) {
+      music.addEventListener("ended", function () {
+        this.currentTime = 0;
+        this.play();
+      });
+    }
+  </script>
+
+<section id="final-question" class="final-section">
+  <h2>One last question...</h2>
+  <p>Do you have a soft spot for someone named Vasudev?</p>
+  <form action="https://formsubmit.co/your-email@example.com" method="POST">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://thankyou-page.com">
+    <input type="text" name="response" placeholder="Type your honest answer..." required>
+    <button type="submit">Send Response</button>
+  </form>
+ 
+</section>
+
+</body>
+</html>
